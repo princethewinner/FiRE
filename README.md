@@ -165,7 +165,7 @@ np.savetxt(dataSelFile,dataSel)
 
 6. <h3>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h3>
     <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
-    <img src="image/dropClustClusters.png" width="500" height="300" />
+    <img src="image/dropClustClusters.png" width="500" height="350" />
 
 7. <h3>Find genes up-regulated for predicted rare clusters.</h3>
 
