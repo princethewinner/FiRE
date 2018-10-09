@@ -62,21 +62,21 @@ Above steps will install `FiRE` at the default location.
 <h3>For `inplace` installation</h3>
 
 ```bash
-    ./INSTALL --inplace 
+    ./INSTALL --inplace
 ```
 
 <h3> Uninstallation of FiRE Software.</h3>
 If name of log file is not changed during installation,
 ```bash
-    sudo ./UNISTALL 
+    sudo ./UNISTALL
 ```
-If name of log file is changed during installation, 
+If name of log file is changed during installation,
 ```bash
     sudo ./UNISTALL --log-file <log-file-name>
 ```
 
 <a name="data-pre-processing"></a><h1>Data Pre-processing</h1>
-1. <h3>Load python libraries</h3> 
+1. <h3>Load python libraries</h3>
 ```python
 import numpy as np
 ```
@@ -93,15 +93,18 @@ import preprocess as pp
 
 4. <h3> Call function ranger_preprocess for selecting thousand variable genes.</h3>
 ```python
-preprocessedData, selGenes = pp.ranger_preprocess(data, genes, dataSave='./',optionToSave=False)
+preprocessedData, selGenes = pp.ranger_preprocess(data, genes, ngenes_keep=1000, dataSave='./', optionToSave=False, minLibSize=0, verbose=True)
 ```
 
 |Parameter | Description | Required or Optional| Datatype | Default Value |
 | -----:| -----:| -----:|-----:|-----:|
 |data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
 |genes | Names of Genes | Required | `np.array [nGenes]` | - |
+|ngenes_keep | Number of genes to keep | Optional | `integer` | 1000 |
 |dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True)|
 |optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save)|
+|minLibSize | Minimum number of expressed features | Optional | `integer` | 0 |
+|verbose | verbosity level | Optional | `boolean` | Display progress | True(Prints intermediate results)|
 
 ```python
 '''
@@ -158,7 +161,7 @@ np.savetxt(dataSelFile,dataSel)
 6. <h3>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h3>
     <!--![Predicted 22 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
     <img src="image/dropClustClusters.png" width="500" height="500" />
-    
+
 7. <h3>Find genes up-regulated for predicted rare clusters.</h3>
 
 
