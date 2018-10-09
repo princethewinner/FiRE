@@ -143,23 +143,28 @@ model.fit(preprocessedData)
 
 4. <h3>Calculate FiRE score of every cell.</h3>
 ```python
-score = model.score(preprocessedData)
+score = np.array(model.score(preprocessedData))
 scoreFile = 'Results/score_hypothalamus.txt'
 np.savetxt(scoreFile,score) #Save scores
 ```
 
-5. <h3>Select a percentage of cells with higher values of FiRE score. It can vary depending on the size of the dataset. (For this dataset, we have chosen this percentage as 5%)</h3>
+5. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
 ```python
-per = 0.05 #This value can vary depending upon the number of samples in the dataset
-cellSel = int(np.floor(per * data.shape[0])) #Calculate total number of cells to keep
-indSel = np.argsort(score)[-cellSel:] #Keep indexes of selected cells with higher RAID score
-dataSel = data[indSel,:] #Select subset of cells
+from scipy import stats
+
+q3 = np.percentile(score, 75)
+iqr = stats.iqr(score)
+th = q3 + 1.5*iqr
+
+indIqr = np.where(score >= th)[0]
+
+dataSel = preprocessedData[indSel,:] #Select subset of cells
 dataSelFile = 'Results/dataSel_hypothalamus.txt'
 np.savetxt(dataSelFile,dataSel)
 ```
 
 6. <h3>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h3>
-    <!--![Predicted 22 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
+    <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
     <img src="image/dropClustClusters.png" width="500" height="500" />
 
 7. <h3>Find genes up-regulated for predicted rare clusters.</h3>
