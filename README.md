@@ -101,10 +101,10 @@ preprocessedData, selGenes = pp.ranger_preprocess(data, genes, ngenes_keep=1000,
 |data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
 |genes | Names of Genes | Required | `np.array [nGenes]` | - |
 |ngenes_keep | Number of genes to keep | Optional | `integer` | 1000 |
-|dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True)|
-|optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save)|
+|dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True) |
+|optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save) |
 |minLibSize | Minimum number of expressed features | Optional | `integer` | 0 |
-|verbose | verbosity level | Optional | `boolean` | Display progress | True(Prints intermediate results)|
+|verbose | Display progress | Optional | `boolean` | True(Prints intermediate results) |
 
 ```python
 '''
