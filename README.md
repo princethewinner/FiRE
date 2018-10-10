@@ -134,10 +134,6 @@ Returned Value :
 ```
 
 <a name="python-api"></a><h1>python API</h1>
-<a name="r-api"></a><h1>R API</h1>
-
-
-<a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
 1. <h3>Load python module of FiRE software.</h3>
 ```python
 import FiRE
@@ -168,6 +164,10 @@ scoreFile = 'Results/score_hypothalamus.txt'
 np.savetxt(scoreFile,score) #Save scores
 ```
 
+<a name="r-api"></a><h1>R API</h1>
+
+
+<a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
 5. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
 ```python
 from scipy import stats
