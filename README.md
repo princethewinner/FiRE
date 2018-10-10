@@ -251,7 +251,7 @@ model$dump_w(filename)
 ```
 
 Hash tables can be accessed via
-```python
+```R
 # type : List
 # shape : L x H x <dynamic>
 # <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
