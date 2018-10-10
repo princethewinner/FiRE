@@ -219,7 +219,7 @@ Acceptable datatype is of `matrix` class and of `type` `double`.
 
 4. <h3>Calculate FiRE score of every cell.</h3>
 ```R
-#
+# Returns a numeric vector
 score <- model$score(preprocessedData)
 ```
 
