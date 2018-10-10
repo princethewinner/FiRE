@@ -160,16 +160,46 @@ model.fit(preprocessedData)
 4. <h3>Calculate FiRE score of every cell.</h3>
 ```python
 score = np.array(model.score(preprocessedData))
-scoreFile = 'Results/score_hypothalamus.txt'
-np.savetxt(scoreFile,score) #Save scores
+```
+
+5. <h3>Access to model parameters.</h3>
+Sampled dimensions can be accessed via
+```python
+# type : 2d list
+# shape : L x M
+model.dims
+```
+Chosen thresholds can be accessed via
+```python
+# type : 2d list
+# shape : L x M
+model.thresholds
+```
+
+Weights can be accessed via
+```python
+# type : 2d list
+# shape : L X M
+model.Weights
+```
+
+Hash tables can be accessed via
+```python
+# type : 3d list
+# shape : L x H x <dynamic>
+# <dynamic> : keeps sample indexes for jth bin and ith estimator.
+model.bins
 ```
 
 <a name="r-api"></a><h1>R API</h1>
 
 
 <a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
-5. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
+1. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
 ```python
+scoreFile = 'Results/score_hypothalamus.txt'
+np.savetxt(scoreFile,score) #Save scores
+
 from scipy import stats
 
 q3 = np.percentile(score, 75)
