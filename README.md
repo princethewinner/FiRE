@@ -9,7 +9,7 @@
    [R API](#r-api)<br />
    [Usage of FiRE](#usage-of-fire-software)<br />
 
-<a name="install"></a><h1>Installation Guide</h1>
+<a name="install"></a># Installation Guide
 
 <a name="pre"></a><h2>Prerequisites</h2>
 
