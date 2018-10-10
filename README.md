@@ -214,14 +214,50 @@ model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
 ```R
 model$fit(preprocessedData)
 ```
-
-Acceptable datatype is of `matrix` class and of `type` `double`.
+Acceptable datatype is of `matrix` class and of `type` `double` (`Numeric matrix`).
 
 4. <h3>Calculate FiRE score of every cell.</h3>
 ```R
 # Returns a numeric vector
 score <- model$score(preprocessedData)
 ```
+
+5. <h3>Access to model parameters.</h3>
+Sampled dimensions can be accessed via
+```R
+# type : Integer matrix
+# shape : L x M
+model$d
+```
+Chosen thresholds can be accessed via
+```R
+# type : Numeric matrix
+# shape : L x M
+model$ths
+```
+
+Weights can be accessed via
+```R
+# type : Numeric matrix
+# shape : 0 x 0
+model$w
+
+# Internally this vector is represented as unsigned int.
+# Since R does not have unsigned data type. This function return a blank matrix.
+# instead, it prints the matrix if number of elements is less than or equal to 100.
+# Though FiRE provides API to save the weight matrix.
+model$dump_w(filename)
+
+```
+
+Hash tables can be accessed via
+```python
+# type : List
+# shape : L x H x <dynamic>
+# <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
+model$b
+```
+
 
 <a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
 1. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
