@@ -267,6 +267,7 @@ model$b
 
 <a name="usage-of-fire-software"></a>
 ## Usage of FiRE Software
+
 1. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h4>
 ```python
 scoreFile = 'Results/score_hypothalamus.txt'
@@ -285,11 +286,11 @@ dataSelFile = 'Results/dataSel_hypothalamus.txt'
 np.savetxt(dataSelFile,dataSel)
 ```
 
-6. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
+2. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
     <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
     <img src="image/dropClustClusters.png" width="500" height="350" />
 
-7. <h4>Find genes up-regulated for predicted rare clusters.</h4>
+3. <h4>Find genes up-regulated for predicted rare clusters.</h4>
 
 
 <!--![violin plot of markers](image/secondRareHypoViolin.png)-->
