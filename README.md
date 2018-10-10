@@ -10,6 +10,9 @@
 <a name="install"></a><h1>Installation Guide</h1>
 
 <a name="pre"></a><h2>Prerequisites</h2>
+
+FiRE is available for `python` and `R`. Required versions and modules for both are as mentioned below. `cpp` modules are necessary for both of them.
+
 1. <h3>Required python modules</h3>
 ```python
     python 2.7.12
@@ -36,9 +39,20 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
 <a name="install-steps"></a><h2>Installation Steps of FiRE software</h2>
 
 ```bash
-    sudo ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace ]
-    sudo ./UNISTALL [ --log-file <log-file-name> ]
+    [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
+    [sudo] ./UNINSTALL_python
+    [sudo] ./UNINSTALL_R
 
+    --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
+    --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
+    --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
+    --py                       : python        : Install FiRE in python environment.
+    --R                        : R             : Install FiRE in R environment.
+    --help                     : python | R    : Display this help.
+
+    Info:
+
+    UNINSTALL_[python | R] files are generated upon installation.
 ```
 
 <h3>If boost is installed at default location</h3>
