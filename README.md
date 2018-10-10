@@ -17,7 +17,7 @@
 
 FiRE is available for `python` and `R`. Required versions and modules for both are as mentioned below. `cpp` modules are necessary for both of them.
 
-1. <h3>Required python modules</h3>
+1. <h4>Required python modules</h4>
 ```python
     python 2.7.12
     cython >= 0.23.4
