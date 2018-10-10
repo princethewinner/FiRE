@@ -22,6 +22,7 @@
 
 2. <h3>Required R modules</h3>
 ```R
+    R >= 3.5.1
     Rcpp >= 0.12.19
 ```
 
