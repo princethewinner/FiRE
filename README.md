@@ -13,14 +13,19 @@
 1. <h3>Required python modules</h3>
 ```python
     python 2.7.12
-    cython >= 0.23.4s
+    cython >= 0.23.4
     distutils >= 2.7.12
     numpy >= 1.13.3
     pandas >= 0.20.3
     statsmodels >= 0.8.0
 ```
 
-2. <h3>Required cpp modules</h3>
+2. <h3>Required python modules</h3>
+```R
+    Rcpp >= 0.12.19
+```
+
+3. <h3>Required cpp modules</h3>
 ```cpp
     g++ >= 4.8.4
     boost >= 1.54.0
