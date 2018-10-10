@@ -192,7 +192,36 @@ model.bins
 ```
 
 <a name="r-api"></a><h1>R API</h1>
+1. <h3>Load R module of FiRE software.</h3>
+```R
+library('FiRE')
+```
+2. <h3>Create model of FiRE.</h3>
+```R
+# model <- new(FiRE::FiRE, L, M, H, seed, verbose)
+model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
+```
 
+|Parameter | Description | Required or Optional| Datatype | Default Value |
+| -----:| -----:| -----:|-----:|-----:|
+|L | Total number of estimators | Required | `int` | - |
+|M | Number of features to be randomly sampled for each estimator | Required | `int` | - |
+|H | Number of bins in hash table | Optional | `int` | 1017881|
+|seed | Seed for random number generator | Optional | `int` | 5489|
+|verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
+
+3. <h3>Apply model to the above dataset.</h3>
+```R
+model$fit(preprocessedData)
+```
+
+Acceptable datatype is of `matrix` class and of `type` `double`.
+
+4. <h3>Calculate FiRE score of every cell.</h3>
+```R
+#
+score <- model$score(preprocessedData)
+```
 
 <a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
 1. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
