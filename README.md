@@ -20,7 +20,7 @@
     statsmodels >= 0.8.0
 ```
 
-2. <h3>Required python modules</h3>
+2. <h3>Required R modules</h3>
 ```R
     Rcpp >= 0.12.19
 ```
