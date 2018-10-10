@@ -285,7 +285,7 @@ dataSelFile = 'Results/dataSel_hypothalamus.txt'
 np.savetxt(dataSelFile,dataSel)
 ```
 
-6. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
+6. <h4>Run [dropClust](#https://github.com/debsin/dropClust) and predict rare clusters.</h4>
     <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
     <img src="image/dropClustClusters.png" width="500" height="350" />
 
