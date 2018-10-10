@@ -27,20 +27,21 @@ FiRE is available for `python` and `R`. Required versions and modules for both a
     statsmodels >= 0.8.0
 ```
 
-2. <h3>Required R modules</h3>
+2. <h4>Required R modules</h4>
 ```R
     R >= 3.2.3
     Rcpp >= 0.12.19
 ```
 
-3. <h3>Required cpp modules</h3>
+3. <h4>Required cpp modules</h4>
 ```cpp
     g++ >= 4.8.4
     boost >= 1.54.0
 ```
 FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not necessary. It can be downloaded from [boost.org](https://www.boost.org/) and used as is.
 
-<a name="install-steps"></a><h2>Installation Steps of FiRE software</h2>
+<a name="install-steps"></a>
+### Installation Steps of FiRE software
 
 ```bash
     [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
@@ -59,13 +60,13 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
     UNINSTALL_[python | R] files are generated upon installation.
 ```
 
-<h3>If boost is installed at default location</h3>
+<h4>If boost is installed at default location</h4>
 
 ```bash
     sudo ./INSTALL [ --py | --R ]
 ```
 
-<h3>If boost is installed at custom location</h3>
+<h4>If boost is installed at custom location</h4>
 
 ```bash
     sudo ./INSTALL --boost-path <full-path> [ --py | --R ]
@@ -83,36 +84,37 @@ Example:
 
 Above steps will install `FiRE` at the default location.
 
-<h3>[Only Python] For `inplace` installation</h3>
+<h4>[Only Python] For `inplace` installation</h4>
 
 ```bash
     ./INSTALL --inplace [--py]
 ```
 
-<h3> Uninstallation of FiRE Software.</h3>
+<h4> Uninstallation of FiRE Software.</h4>
 
 ```bash
     [sudo] ./UNINSTALL_python
     [sudo] ./UNINSTALL_R
 ```
 
-<a name="data-pre-processing"></a><h1>Data Pre-processing</h1>
-1. <h3>Load python libraries</h3>
+<a name="data-pre-processing"></a>
+## Data Pre-processing
+1. <h4>Load python libraries</h4>
 ```python
 import numpy as np
 ```
 
-2. <h3>Load Data in current environment.</h3>
+2. <h4>Load Data in current environment.</h4>
 ```python
 #Data matrix should only consist of values where rows represent cells and columns represent genes.
 ```
 
-3. <h3>Copy preprocess.py in current working directory and load preprocess.</h3>
+3. <h4>Copy preprocess.py in current working directory and load preprocess.</h4>
 ```python
 import preprocess as pp
 ```
 
-4. <h3> Call function ranger_preprocess for selecting thousand variable genes.</h3>
+4. <h4> Call function ranger_preprocess for selecting thousand variable genes.</h4>
 ```python
 preprocessedData, selGenes = pp.ranger_preprocess(data, genes, ngenes_keep=1000, dataSave='./', optionToSave=False, minLibSize=0, verbose=True)
 ```
@@ -135,13 +137,14 @@ Returned Value :
 '''
 ```
 
-<a name="python-api"></a><h1>python API</h1>
-1. <h3>Load python module of FiRE software.</h3>
+<a name="python-api"></a>
+## python API
+1. <h4>Load python module of FiRE software.</h4>
 ```python
 import FiRE
 ```
 
-2. <h3>Create model of FiRE.</h3>
+2. <h4>Create model of FiRE.</h4>
 ```python
 model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
 ```
@@ -154,17 +157,17 @@ model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
 |seed | Seed for random number generator | Optional | `unsigned int` | 5489|
 |verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
 
-3. <h3>Apply model to the above dataset.</h3>
+3. <h4>Apply model to the above dataset.</h4>
 ```python
 model.fit(preprocessedData)
 ```
 
-4. <h3>Calculate FiRE score of every cell.</h3>
+4. <h4>Calculate FiRE score of every cell.</h4>
 ```python
 score = np.array(model.score(preprocessedData))
 ```
 
-5. <h3>Access to model parameters.</h3>
+5. <h4>Access to model parameters.</h4>
 Sampled dimensions can be accessed via
 ```python
 # type : 2d list
@@ -193,12 +196,13 @@ Hash tables can be accessed via
 model.bins
 ```
 
-<a name="r-api"></a><h1>R API</h1>
-1. <h3>Load R module of FiRE software.</h3>
+<a name="r-api"></a>
+## R API
+1. <h4>Load R module of FiRE software.</h4>
 ```R
 library('FiRE')
 ```
-2. <h3>Create model of FiRE.</h3>
+2. <h4>Create model of FiRE.</h4>
 ```R
 # model <- new(FiRE::FiRE, L, M, H, seed, verbose)
 model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
@@ -212,19 +216,19 @@ model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
 |seed | Seed for random number generator | Optional | `int` | 5489|
 |verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
 
-3. <h3>Apply model to the above dataset.</h3>
+3. <h4>Apply model to the above dataset.</h4>
 ```R
 model$fit(preprocessedData)
 ```
 Acceptable datatype is of `matrix` class and of `type` `double` (`Numeric matrix`).
 
-4. <h3>Calculate FiRE score of every cell.</h3>
+4. <h4>Calculate FiRE score of every cell.</h4>
 ```R
 # Returns a numeric vector
 score <- model$score(preprocessedData)
 ```
 
-5. <h3>Access to model parameters.</h3>
+5. <h4>Access to model parameters.</h4>
 Sampled dimensions can be accessed via
 ```R
 # type : Integer matrix
@@ -261,8 +265,9 @@ model$b
 ```
 
 
-<a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
-1. <h3>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h3>
+<a name="usage-of-fire-software"></a>
+## Usage of FiRE Software
+1. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h4>
 ```python
 scoreFile = 'Results/score_hypothalamus.txt'
 np.savetxt(scoreFile,score) #Save scores
@@ -280,11 +285,11 @@ dataSelFile = 'Results/dataSel_hypothalamus.txt'
 np.savetxt(dataSelFile,dataSel)
 ```
 
-6. <h3>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h3>
+6. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
     <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
     <img src="image/dropClustClusters.png" width="500" height="350" />
 
-7. <h3>Find genes up-regulated for predicted rare clusters.</h3>
+7. <h4>Find genes up-regulated for predicted rare clusters.</h4>
 
 
 <!--![violin plot of markers](image/secondRareHypoViolin.png)-->
