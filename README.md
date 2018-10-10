@@ -25,7 +25,7 @@ FiRE is available for `python` and `R`. Required versions and modules for both a
 
 2. <h3>Required R modules</h3>
 ```R
-    R >= 3.5.1
+    R >= 3.2.3
     Rcpp >= 0.12.19
 ```
 
@@ -69,7 +69,7 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
 ```
 Example:
 ```bash
-    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0
+    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 [ --py | --R ]
 ```
 [Only Python] Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
 
@@ -79,20 +79,16 @@ Example:
 
 Above steps will install `FiRE` at the default location.
 
-<h3>For `inplace` installation (only python)</h3>
+<h3>[Only Python] For `inplace` installation</h3>
 
 ```bash
     ./INSTALL --inplace --py
 ```
 
 <h3> Uninstallation of FiRE Software.</h3>
-If name of log file is not changed during installation,
 ```bash
-    sudo ./UNISTALL
-```
-If name of log file is changed during installation,
-```bash
-    sudo ./UNISTALL --log-file <log-file-name>
+    [sudo] ./UNINSTALL_python
+    [sudo] ./UNINSTALL_R
 ```
 
 <a name="data-pre-processing"></a><h1>Data Pre-processing</h1>
