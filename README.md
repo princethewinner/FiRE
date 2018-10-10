@@ -5,6 +5,8 @@
      -[Prerequisites](#pre)<br />
      -[Installation Steps of FiRE software](#install-steps)<br />
    [Data Pre-processing](#data-pre-processing)<br />
+   [python API](#python-api)<br/>
+   [R API](#r-api)<br />
    [Usage of FiRE](#usage-of-fire-software)<br />
 
 <a name="install"></a><h1>Installation Guide</h1>
@@ -131,7 +133,8 @@ Returned Value :
 '''
 ```
 
-
+<a name="python-api"></a><h1>python API</h1>
+<a name="r-api"></a><h1>R API</h1>
 
 
 <a name="usage-of-fire-software"></a><h1>Usage of FiRE Software</h1>
