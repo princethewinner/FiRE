@@ -268,8 +268,10 @@ model$b
 <a name="usage-of-fire-software"></a>
 ## Usage of FiRE Software
 
-1. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria. </h4>
+1. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
+
 ```python
+
 scoreFile = 'Results/score_hypothalamus.txt'
 np.savetxt(scoreFile,score) #Save scores
 
@@ -284,6 +286,7 @@ indIqr = np.where(score >= th)[0]
 dataSel = preprocessedData[indSel,:] #Select subset of cells
 dataSelFile = 'Results/dataSel_hypothalamus.txt'
 np.savetxt(dataSelFile,dataSel)
+
 ```
 
 2. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
