@@ -74,7 +74,7 @@ Example:
 [Only Python] Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
 
 ```bash
-    ./INSTALL --log-file <log-file-name> --py
+    ./INSTALL --log-file <log-file-name> [--py]
 ```
 
 Above steps will install `FiRE` at the default location.
@@ -82,10 +82,11 @@ Above steps will install `FiRE` at the default location.
 <h3>[Only Python] For `inplace` installation</h3>
 
 ```bash
-    ./INSTALL --inplace --py
+    ./INSTALL --inplace [--py]
 ```
 
 <h3> Uninstallation of FiRE Software.</h3>
+
 ```bash
     [sudo] ./UNINSTALL_python
     [sudo] ./UNINSTALL_R
