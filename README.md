@@ -12,7 +12,8 @@
 <a name="install"></a>
 ## Installation Guide
 
-<a name="pre"></a><h2>Prerequisites</h2>
+<a name="pre"></a>
+### Prerequisites
 
 FiRE is available for `python` and `R`. Required versions and modules for both are as mentioned below. `cpp` modules are necessary for both of them.
 
