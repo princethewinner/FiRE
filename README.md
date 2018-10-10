@@ -187,7 +187,7 @@ Hash tables can be accessed via
 ```python
 # type : 3d list
 # shape : L x H x <dynamic>
-# <dynamic> : keeps sample indexes for jth bin and ith estimator.
+# <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
 model.bins
 ```
 
