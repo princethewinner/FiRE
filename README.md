@@ -180,7 +180,7 @@ Weights can be accessed via
 ```python
 # type : 2d list
 # shape : L X M
-model.Weights
+model.weights
 ```
 
 Hash tables can be accessed via
