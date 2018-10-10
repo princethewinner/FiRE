@@ -1,11 +1,11 @@
 
 # FiRE - Finder of Rare Entities
-Contents
-    Installation Guide ...............................................[1](#install)<br />
-    -Prerequisites ......................................................................[1.1](#pre)<br />
-    -Installation Steps of FiRE software ..................................[1.2](#install-steps)<br />
-    Data Pre-processing ..........................................[2](#data-pre-processing)<br />
-    Usage of FiRE .....................................................[3](#usage-of-fire-software)<br />
+## Contents
+    ### Installation Guide ...............................................[1](#install)<br />
+    #### -Prerequisites ......................................................................[1.1](#pre)<br />
+    #### -Installation Steps of FiRE software ..................................[1.2](#install-steps)<br />
+    ### Data Pre-processing ..........................................[2](#data-pre-processing)<br />
+    ### Usage of FiRE .....................................................[3](#usage-of-fire-software)<br />
 
 <a name="install"></a><h1>Installation Guide</h1>
 
