@@ -58,31 +58,31 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
 <h3>If boost is installed at default location</h3>
 
 ```bash
-    sudo ./INSTALL
+    sudo ./INSTALL [ --py | --R ]
 ```
 
 <h3>If boost is installed at custom location</h3>
 
 ```bash
-    sudo ./INSTALL --boost-path <full-path>
+    sudo ./INSTALL --boost-path <full-path> [ --py | --R ]
 
 ```
 Example:
 ```bash
     sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0
 ```
-Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
+[Only Python] Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
 
 ```bash
-    ./INSTALL --log-file <log-file-name>
+    ./INSTALL --log-file <log-file-name> --py
 ```
 
 Above steps will install `FiRE` at the default location.
 
-<h3>For `inplace` installation</h3>
+<h3>For `inplace` installation (only python)</h3>
 
 ```bash
-    ./INSTALL --inplace
+    ./INSTALL --inplace --py
 ```
 
 <h3> Uninstallation of FiRE Software.</h3>
