@@ -136,12 +136,12 @@ Returned Value :
 <a name="python-api"></a><h1>python API</h1>
 1. <h3>Load python module of FiRE software.</h3>
 ```python
->>>import FiRE
+import FiRE
 ```
 
 2. <h3>Create model of FiRE.</h3>
 ```python
->>>model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
+model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
 ```
 
 |Parameter | Description | Required or Optional| Datatype | Default Value |
@@ -154,12 +154,12 @@ Returned Value :
 
 3. <h3>Apply model to the above dataset.</h3>
 ```python
->>>model.fit(preprocessedData)
+model.fit(preprocessedData)
 ```
 
 4. <h3>Calculate FiRE score of every cell.</h3>
 ```python
->>>score = np.array(model.score(preprocessedData))
+score = np.array(model.score(preprocessedData))
 ```
 
 5. <h3>Access to model parameters.</h3>
@@ -167,20 +167,20 @@ Sampled dimensions can be accessed via
 ```python
 # type : 2d list
 # shape : L x M
->>>model.dims
+model.dims
 ```
 Chosen thresholds can be accessed via
 ```python
 # type : 2d list
 # shape : L x M
->>>model.thresholds
+model.thresholds
 ```
 
 Weights can be accessed via
 ```python
 # type : 2d list
 # shape : L X M
->>>model.weights
+model.weights
 ```
 
 Hash tables can be accessed via
@@ -188,7 +188,7 @@ Hash tables can be accessed via
 # type : 3d list
 # shape : L x H x <dynamic>
 # <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
->>>model.bins
+model.bins
 ```
 
 <a name="r-api"></a><h1>R API</h1>
