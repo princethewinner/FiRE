@@ -134,7 +134,27 @@ Above steps will install `FiRE` at the default location.
 python example/jurkat_simulation.py
 ```
 
-Step-by-step description of demo is as follows
+Since data (data/jurkat_two_species_1580.txt.gz) is large, hence this data may require large amount of RAM to load and pre-process. We also provide pre-processed data (data/preprocessedData_jurkat_two_species_1580.txt.gz). Demo using this data as follows
+
+```python
+python example/jurkat_simulation_small.py
+```
+
+Small demo takes seconds to completes. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+Loading Data : 1.850723s
+Running FiRE : 1.134673
+
+Total Demo time:
+
+real 4.33
+user 3.55
+sys 0.76
+
+```
+
+Step-by-step description of full demo (example/jurkat_simulation.py) is as follows
 
 1. <h4>Load libraries </h4>
 ```python
@@ -159,7 +179,7 @@ with gzip.GzipFile('data/jurkat_two_species_1580.txt.gz', 'r') as fid:
 
 data = data.T #Samples * Features
 
-labels = np.genfromtxt('data/labels_two_species_1580.txt', dtype=np.int) #Cells with label '1' represent abundant, while cells with label '2' represent rare.
+labels = np.genfromtxt('data/labels_jurkat_two_species_1580.txt', dtype=np.int) #Cells with label '1' represent abundant, while cells with label '2' represent rare.
 ```
 
 <a name="data-pre-processing"></a>
