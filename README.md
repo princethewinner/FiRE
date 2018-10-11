@@ -269,7 +269,7 @@ model.bins
 ```
 
 9. <h4>FiRE recovers artifitially planted rare cells (Figure).</h4>
-    <img src="image/jurkat.png" width="500" height="150" />
+    <img src="image/jurkat.png" width="1000" height="300" />
 
 
 <a name="r-api"></a>
