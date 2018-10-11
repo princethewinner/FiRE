@@ -214,6 +214,12 @@ model.fit(preprocessedData)
 6. <h4>Calculate FiRE score of every cell.</h4>
 ```python
 score = np.array(model.score(preprocessedData))
+'''
+Returned Value :
+    score : FiRE score of every cell : np.array[nCells]
+
+Higher values of FiRE score represent rare cells.
+'''
 ```
 
 7. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
@@ -226,7 +232,11 @@ th = q3 + 1.5*iqr
 
 indIqr = np.where(score >= th)[0]
 
-dataSel = preprocessedData[indSel,:] #Select subset of rare cells
+dataSel = preprocessedData[indIqr,:] #Select subset of rare cells
+
+#Create a file with binary predictions
+predictions = np.zeros(data.shape[0])
+predictions[indIqr] = 1 #Replace predictions for rare cells with '1'.
 ```
 
 8. <h4>Access to model parameters.</h4>
@@ -257,6 +267,10 @@ Hash tables can be accessed via
 # <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
 model.bins
 ```
+
+9. <h4>FiRE recovers artifitially planted rare cells (Figure).<\h4>
+    <img src="output/python/jurkat/jurkat.png" width="500" height="150" />
+
 
 <a name="r-api"></a>
 ## R API
@@ -325,38 +339,3 @@ Hash tables can be accessed via
 # <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
 model$b
 ```
-
-
-<a name="usage-of-fire-software"></a>
-## Usage of FiRE Software
-
-1. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
-
-```python
-
-scoreFile = 'Results/score_hypothalamus.txt'
-np.savetxt(scoreFile,score) #Save scores
-
-from scipy import stats
-
-q3 = np.percentile(score, 75)
-iqr = stats.iqr(score)
-th = q3 + 1.5*iqr
-
-indIqr = np.where(score >= th)[0]
-
-dataSel = preprocessedData[indSel,:] #Select subset of cells
-dataSelFile = 'Results/dataSel_hypothalamus.txt'
-np.savetxt(dataSelFile,dataSel)
-
-```
-
-2. <h4>Run [dropClust](https://github.com/debsin/dropClust) and predict rare clusters.</h4>
-    <!--![Predicted 12 rare clusters using dropClust](image/dropClustClusters.png =250x250)-->
-    <img src="image/dropClustClusters.png" width="500" height="350" />
-
-3. <h4>Find genes up-regulated for predicted rare clusters.</h4>
-
-
-<!--![violin plot of markers](image/secondRareHypoViolin.png)-->
-<img src="image/secondRareHypoViolin.png" width="500" height="700" />
