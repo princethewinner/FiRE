@@ -134,13 +134,13 @@ Above steps will install `FiRE` at the default location.
 python example/jurkat_simulation.py
 ```
 
-Since data (data/jurkat_two_species_1580.txt.gz) is large, hence this data may require large amount of RAM to load and pre-process. We also provide pre-processed data (data/preprocessedData_jurkat_two_species_1580.txt.gz). Demo using this data as follows
+Since data (`data/jurkat_two_species_1580.txt.gz`) is large, this may require large amount of RAM to load and pre-process. We also provide pre-processed data (`data/preprocessedData_jurkat_two_species_1580.txt.gz`). Pre-processing was done using the script present in `utils/preprocess.py`. Demo using this data as follows
 
 ```python
 python example/jurkat_simulation_small.py
 ```
 
-Small demo takes seconds to completes. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+Small demo takes seconds to complete. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
 
 ```bash
 Loading Data : 1.850723s
