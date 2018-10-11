@@ -16,6 +16,7 @@
 ### Prerequisites
 
 Tested on Ubuntu 14.04 and Ubuntu 16.04.
+
 All results in manuscript have been generated using `python` module.
 
 FiRE is available for `python` and `R`. Required versions and modules for both are as mentioned below. `cpp` modules are necessary for both of them.
@@ -78,6 +79,14 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
     Info:
 
     UNINSTALL_[python | R] files are generated upon installation.
+```
+
+[Only Python] Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 4GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+real 3.06
+user 2.90
+sys 0.15
 ```
 
 <h4>If boost is installed at default location</h4>
