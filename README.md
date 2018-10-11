@@ -4,10 +4,9 @@
    [Installation Guide](#install)<br />
      -[Prerequisites](#pre)<br />
      -[Installation Steps of FiRE software](#install-steps)<br />
-   [Demo](#Demo)<br />
+   [Demo python](#Demo)<br />
    [Data Pre-processing](#data-pre-processing)<br />
-   [python API](#python-api)<br/>
-   [R API](#r-api)<br />
+   [Demo R](#r-api)<br />
    [Usage of FiRE](#usage-of-fire-software)<br />
 
 <a name="install"></a>
@@ -137,26 +136,43 @@ python example/jurkat_simulation.py
 
 Step-by-step description of demo is as follows
 
-<a name="data-pre-processing"></a>
-### Data Pre-processing
-1. <h4>Load python libraries</h4>
+1. <h4>Load libraries </h4>
 ```python
+import sys
+sys.path.append('utils')
+
 import numpy as np
+import gzip
+from scipy import stats
+
+import preprocess as pp
+import misc
+import FiRE
 ```
 
 2. <h4>Load Data in current environment.</h4>
 ```python
 #Data matrix should only consist of values where rows represent cells and columns represent genes.
+
+with gzip.GzipFile('data/jurkat_two_species_1580.txt.gz', 'r') as fid:
+    data = np.genfromtxt(fid)
+
+data = data.T #Samples * Features
+
+labels = np.genfromtxt('data/labels_two_species_1580.txt', dtype=np.int) #Cells with label '1' represent abundant, while cells with label '2' represent rare.
 ```
 
-3. <h4>Copy preprocess.py in current working directory and load preprocess.</h4>
-```python
-import preprocess as pp
-```
+<a name="data-pre-processing"></a>
+### Data Pre-processing
 
-4. <h4> Call function ranger_preprocess for selecting thousand variable genes.</h4>
+3. <h4> Call function ranger_preprocess for selecting thousand variable genes.</h4>
 ```python
-preprocessedData, selGenes = pp.ranger_preprocess(data, genes, ngenes_keep=1000, dataSave='./', optionToSave=False, minLibSize=0, verbose=True)
+
+#Genes
+genes = np.arange(1, data.shape[1]+1) #It can be replaced with original gene names
+
+#Filter top 1k genes
+preprocessedData, selGenes = pp.ranger_preprocess(data, genes, optionToSave=True, dataSave=outputFolder)
 ```
 
 |Parameter | Description | Required or Optional| Datatype | Default Value |
@@ -177,14 +193,7 @@ Returned Value :
 '''
 ```
 
-<a name="python-api"></a>
-## python API
-1. <h4>Load python module of FiRE software.</h4>
-```python
-import FiRE
-```
-
-2. <h4>Create model of FiRE.</h4>
+4. <h4>Create model of FiRE.</h4>
 ```python
 model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
 ```
@@ -197,17 +206,30 @@ model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
 |seed | Seed for random number generator | Optional | `unsigned int` | 5489|
 |verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
 
-3. <h4>Apply model to the above dataset.</h4>
+5. <h4>Apply model to the above dataset.</h4>
 ```python
 model.fit(preprocessedData)
 ```
 
-4. <h4>Calculate FiRE score of every cell.</h4>
+6. <h4>Calculate FiRE score of every cell.</h4>
 ```python
 score = np.array(model.score(preprocessedData))
 ```
 
-5. <h4>Access to model parameters.</h4>
+7. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
+
+```python
+
+q3 = np.percentile(score, 75)
+iqr = stats.iqr(score)
+th = q3 + 1.5*iqr
+
+indIqr = np.where(score >= th)[0]
+
+dataSel = preprocessedData[indSel,:] #Select subset of rare cells
+```
+
+8. <h4>Access to model parameters.</h4>
 Sampled dimensions can be accessed via
 ```python
 # type : 2d list
