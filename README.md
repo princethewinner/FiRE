@@ -268,8 +268,8 @@ Hash tables can be accessed via
 model.bins
 ```
 
-9. <h4>FiRE recovers artifitially planted rare cells (Figure).<\h4>
-    <img src="output/python/jurkat/jurkat.png" width="500" height="150" />
+9. <h4>FiRE recovers artifitially planted rare cells (Figure).</h4>
+    <img src="image/jurkat.png" width="500" height="150" />
 
 
 <a name="r-api"></a>
