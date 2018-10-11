@@ -1,0 +1,167 @@
+#!/bin/bash
+#
+# Copyright (C) 2018 Aashi Jindal, Prashant Gupta, Jayadeva, Debarka Sengupta (aashi.jindal@ee.iitd.ac.in, prashant.gupta@ee.iitd.ac.in, jayadeva@ee.iitd.ac.in, debarka@iiitd.com). All Rights Reserved.
+#
+# This file is part of FiRE.
+#
+# FiRE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# FiRE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with FiRE.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+function get_help {
+
+echo -e " [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
+ [sudo] ./UNINSTALL_python
+ [sudo] ./UNINSTALL_R
+
+ --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
+ --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
+ --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
+ --py                       : python        : Install FiRE in python environment.
+ --R                        : R             : Install FiRE in R environment.
+ --help                     : python | R    : Display this help.
+
+ Info:
+
+ UNINSTALL_[python | R] files are generated upon installation.
+
+"
+
+}
+
+BOOST_PATH=None
+CARG='install'
+LOG_FILE='fireInstall.log'
+LANGUAGE='python'
+
+VERSION=1.0
+AUTHOR='Aashi Jindal & Prashant Gupta'
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+
+        '--boost-path') #set boost path
+            shift;
+            BOOST_PATH=$1;
+        ;;
+
+        '--inplace')
+            CARG='build_ext'
+        ;;
+
+        '--log-file')
+            shift;
+            LOG_FILE=$1
+        ;;
+
+        '--py')
+            LANGUAGE='python'
+        ;;
+        '--R')
+            LANGUAGE='R'
+        ;;
+        '--help')
+            get_help
+            exit
+        ;;
+
+    esac
+
+    shift;
+done
+
+STATUS=0
+WD=${PWD}
+UNINSTALL_FILE=${WD}/UNINSTALL_${LANGUAGE}
+
+if [ ${LANGUAGE} == 'python' ]; then
+
+    INSTALL_DIR=${LANGUAGE}/FiRE
+    echo "Changing directory to ${INSTALL_DIR}"
+    cd ${INSTALL_DIR}
+
+    SETUP_STRING="from distutils.core import setup, Extension\nfrom Cython.Build import cythonize\nimport os\nos.environ['CFLAGS'] = ' -g'\nboost_path = '${BOOST_PATH}'\nsetup(ext_modules = cythonize(Extension('FiRE',sources=['FiRE.pyx', 'cppFiRE.cpp'],language='c++',)),include_dirs=[boost_path],version='${VERSION}',author='${AUTHOR}',name='FiRE')"
+
+    echo -e ${SETUP_STRING} > setup.py
+
+    case $CARG in
+        'install')
+            echo "python setup.py ${CARG} --record $LOG_FILE"
+            if python setup.py ${CARG} --record $LOG_FILE; then
+                STATUS=2
+                UNINSTALL_STRING="#!/bin/bash\ncat ${INSTALL_DIR}/${LOG_FILE} | xargs rm -rf\nrm ${INSTALL_DIR}/${LOG_FILE}\nrm ${UNINSTALL_FILE}"
+                echo -e ${UNINSTALL_STRING} > ${UNINSTALL_FILE}
+            fi
+
+        ;;
+
+        'build_ext')
+            echo "python setup.py ${CARG} --inplace"
+            if python setup.py ${CARG} --inplace; then
+                STATUS=2
+                UNINSTALL_STRING="#!/bin/bash\nrm ${INSTALL_DIR}/FiRE.so\nrm ${UNINSTALL_FILE}"
+                echo -e ${UNINSTALL_STRING} > ${UNINSTALL_FILE}
+            fi
+    esac
+
+    if [ ${STATUS} -gt 0 ]; then
+        echo "Cleaning up the build"
+        rm -r build/
+        rm setup.py
+        rm FiRE.cpp
+    fi
+
+fi
+
+if [ ${LANGUAGE} == 'R' ]; then
+
+    if [ ${BOOST_PATH} != "None" ]; then
+        echo -e "export PKG_CPPFLAGS=-I${BOOST_PATH}"
+        export PKG_CPPFLAGS=-I${BOOST_PATH}
+    fi
+
+    INSTALL_DIR=${LANGUAGE}
+    echo "Changing directory to ${INSTALL_DIR}"
+    cd ${INSTALL_DIR}
+
+    if R CMD build FiRE; then
+        echo "BUILD successful"
+        BUILD_FILE=`ls FiRE*.tar.gz`
+        STATUS=1
+
+        if R CMD INSTALL ${BUILD_FILE}; then
+
+            STATUS=2
+            UNINSTALL_STRING="#/bin/bash\nR CMD REMOVE FiRE\nrm ${UNINSTALL_FILE}"
+            echo -e ${UNINSTALL_STRING} > ${UNINSTALL_FILE}
+
+        else
+
+            echo "Installation failed for some reason.\n Retry as 'sudo ./INSTALL --R"
+
+        fi
+
+        rm ${BUILD_FILE}
+
+    fi
+
+fi
+
+if [ ${STATUS} -gt 1 ]; then
+    if chmod +x ${UNINSTALL_FILE}; then
+        echo -e "FiRE INSTALLATION COMPLETE : ${LANGUAGE}"
+    else
+        echo -e "\n\nWARNING: could not change permission of ${UNINSTALL_FILE}.\nPlease run 'sudo chmod +x ${UNINSTALL_FILE}'"
+    fi
+fi
