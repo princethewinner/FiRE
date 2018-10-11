@@ -81,12 +81,12 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
     UNINSTALL_[python | R] files are generated upon installation.
 ```
 
-[Only Python] Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 4GB memory, and OS Ubuntu 16.04 LTS is as follows
+[Only Python] Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
 
 ```bash
-real 3.06
-user 2.90
-sys 0.15
+real 2.92
+user 2.73
+sys 0.18
 ```
 
 <h4>If boost is installed at default location</h4>
@@ -270,6 +270,9 @@ model.bins
 
 9. <h4>FiRE recovers artifitially planted rare cells (Figure).</h4>
     <img src="image/jurkat.png" width="1000" height="300" />
+
+(a) t-SNE based 2D embedding of the cells with color-coded identities (b) FiRE score intensities plotted on the t-SNE based 2D map. (c) Rare cells detected by FiRE.
+
 
 
 <a name="r-api"></a>
