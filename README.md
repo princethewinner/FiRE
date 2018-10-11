@@ -4,6 +4,7 @@
    [Installation Guide](#install)<br />
      -[Prerequisites](#pre)<br />
      -[Installation Steps of FiRE software](#install-steps)<br />
+   [Demo](#Demo)<br />
    [Data Pre-processing](#data-pre-processing)<br />
    [python API](#python-api)<br/>
    [R API](#r-api)<br />
@@ -126,8 +127,18 @@ Above steps will install `FiRE` at the default location.
     [sudo] ./UNINSTALL_R
 ```
 
+<a name="Demo"></a>
+## Demo
+
+[Only Python] Run demo from FiRE directory as follows
+```python
+python example/jurkat_simulation.py
+```
+
+Step-by-step description of demo is as follows
+
 <a name="data-pre-processing"></a>
-## Data Pre-processing
+### Data Pre-processing
 1. <h4>Load python libraries</h4>
 ```python
 import numpy as np
