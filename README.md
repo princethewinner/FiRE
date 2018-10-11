@@ -15,16 +15,36 @@
 <a name="pre"></a>
 ### Prerequisites
 
+Tested on Ubuntu 14.04 and Ubuntu 16.04.
+All results in manuscript have been generated using `python` module.
+
 FiRE is available for `python` and `R`. Required versions and modules for both are as mentioned below. `cpp` modules are necessary for both of them.
 
 1. <h4>Required python modules</h4>
 ```python
-    python 2.7.12
+    python 2.7
+```
+
+For FiRE module
+```python
     cython >= 0.23.4
     distutils >= 2.7.12
+```
+
+For preprocessing
+```python
     numpy >= 1.13.3
     pandas >= 0.20.3
     statsmodels >= 0.8.0
+```
+
+For demo
+```python
+    gzip >= 1.2.11 (zlib)
+    scipy >= 1.1.0
+    matplotlib >= 2.1.0
+    cmocean >= 1.2
+    sklearn >= 0.19.1
 ```
 
 2. <h4>Required R modules</h4>
