@@ -145,6 +145,170 @@ Above steps will install `FiRE` at the default location.
 <a name="r-demo"></a>
 ## R Package
 
+Run demo from FiRE directory as follows
+```python
+python example/jurkat_simulation.py
+```
+
+Since data (`data/jurkat_two_species_1580.txt.gz`) is large, this may require large amount of RAM to load and pre-process. We have also providee pre-processed data (`data/preprocessedData_jurkat_two_species_1580.txt.gz`). Pre-processing was done using the script present in `utils/preprocess.py`. Demo using this data as follows
+
+```python
+python example/jurkat_simulation_small.py
+```
+
+Small demo takes seconds to complete. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+Loading preprocessed Data : 1.850723s
+Running FiRE : 1.134673s
+
+Total Demo time:
+
+real 4.33
+user 3.55
+sys 0.76
+
+```
+
+Step-by-step description of full demo (example/jurkat_simulation.py) is as follows
+
+1. <h4>Load libraries </h4>
+```python
+import sys
+sys.path.append('utils')
+
+import numpy as np
+import gzip
+from scipy import stats
+
+import preprocess as pp
+import misc
+import FiRE
+```
+
+2. <h4>Load Data in current environment.</h4>
+```python
+#Data matrix should only consist of values where rows represent cells and columns represent genes.
+
+with gzip.GzipFile('data/jurkat_two_species_1580.txt.gz', 'r') as fid:
+    data = np.genfromtxt(fid)
+
+data = data.T #Samples * Features
+
+labels = np.genfromtxt('data/labels_jurkat_two_species_1580.txt', dtype=np.int) #Cells with label '1' represent abundant, while cells with label '2' represent rare.
+```
+
+<a name="data-pre-processing"></a>
+### Data Pre-processing
+
+3. <h4> Call function ranger_preprocess for selecting thousand variable genes.</h4>
+```python
+
+#Genes
+genes = np.arange(1, data.shape[1]+1) #It can be replaced with original gene names
+
+#Filter top 1k genes
+preprocessedData, selGenes = pp.ranger_preprocess(data, genes, optionToSave=True, dataSave=outputFolder)
+```
+
+|Parameter | Description | Required or Optional| Datatype | Default Value |
+| -----:| -----:| -----:|-----:|-----:|
+|data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
+|genes | Names of Genes | Required | `np.array [nGenes]` | - |
+|ngenes_keep | Number of genes to keep | Optional | `integer` | 1000 |
+|dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True) |
+|optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save) |
+|minLibSize | Minimum number of expressed features | Optional | `integer` | 0 |
+|verbose | Display progress | Optional | `boolean` | True(Prints intermediate results) |
+
+```python
+'''
+Returned Value :
+    preprocessedData : processed data matrix (log2 transformed) : np.array [nCells, nVariableGenes]
+    selGenes         : Names of thousand variable genes selected : np.array [nVariableGenes]
+'''
+```
+
+4. <h4>Create model of FiRE.</h4>
+```python
+model = FiRE.FiRE(L=100, M=50, H=1017881, seed=5489, verbose=0)
+```
+
+|Parameter | Description | Required or Optional| Datatype | Default Value |
+| -----:| -----:| -----:|-----:|-----:|
+|L | Total number of estimators | Required | `int` | - |
+|M | Number of features to be randomly sampled for each estimator | Required | `int` | - |
+|H | Number of bins in hash table | Optional | `int` | 1017881|
+|seed | Seed for random number generator | Optional | `unsigned int` | 5489|
+|verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
+
+5. <h4>Apply model to the above dataset.</h4>
+```python
+model.fit(preprocessedData)
+```
+
+6. <h4>Calculate FiRE score of every cell.</h4>
+```python
+score = np.array(model.score(preprocessedData))
+'''
+Returned Value :
+    score : FiRE score of every cell : np.array[nCells]
+
+Higher values of FiRE score represent rare cells.
+'''
+```
+
+7. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
+
+```python
+
+q3 = np.percentile(score, 75)
+iqr = stats.iqr(score)
+th = q3 + 1.5*iqr
+
+indIqr = np.where(score >= th)[0]
+
+dataSel = preprocessedData[indIqr,:] #Select subset of rare cells
+
+#Create a file with binary predictions
+predictions = np.zeros(data.shape[0])
+predictions[indIqr] = 1 #Replace predictions for rare cells with '1'.
+```
+
+8. <h4>Access to model parameters.</h4>
+Sampled dimensions can be accessed via
+```python
+# type : 2d list
+# shape : L x M
+model.dims
+```
+Chosen thresholds can be accessed via
+```python
+# type : 2d list
+# shape : L x M
+model.thresholds
+```
+
+Weights can be accessed via
+```python
+# type : 2d list
+# shape : L X M
+model.weights
+```
+
+Hash tables can be accessed via
+```python
+# type : 3d list
+# shape : L x H x <dynamic>
+# <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
+model.bins
+```
+
+9. <h4>FiRE recovers artifitially planted rare cells (Figure).</h4>
+    <img src="image/jurkat.png" width="1000" height="300" />
+
+(a) t-SNE based 2D embedding of the cells with color-coded identities (b) FiRE score intensities plotted on the t-SNE based 2D map. (c) Rare cells detected by FiRE.
+
 <a name="pre-R"></a>
 ### Prerequisites
 
@@ -157,6 +321,29 @@ Above steps will install `FiRE` at the default location.
 
 <a name="install-steps-R"></a>
 ### Installation Steps
+
+<h4>If boost is installed at default location</h4>
+
+```bash
+    sudo ./INSTALL --R
+```
+
+<h4>If boost is installed at custom location</h4>
+
+```bash
+    sudo ./INSTALL --boost-path <full-path> --R
+
+```
+Example:
+```bash
+    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --R
+```
+
+<h4> Uninstallation of FiRE Software.</h4>
+
+```bash
+    [sudo] ./UNINSTALL_R
+```
 
 <a name="usage-R"></a>
 ### Usage
