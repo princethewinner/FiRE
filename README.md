@@ -379,9 +379,9 @@ Running FiRE : 1.134673s
 
 Total Demo time:
 
-real 4.33
-user 3.55
-sys 0.76
+real
+user
+sys
 
 ```
 
@@ -389,30 +389,31 @@ Step-by-step description of full demo (example/jurkat_simulation.R) is as follow
 
 1. <h4>Load libraries</h4>
 ```R
-    library('FiRE')
-    source('utils/preprocess.R')
+library('FiRE')
+source('utils/preprocess.R')
 ```
 
 2. <h4>Load Data in current environment.</h4>
 ```R
-    #Read data
-    data <- read.table(gzfile('data/jurkat_two_species_1580.txt.gz'))
-    data <- t(data) #Samples * Features
+#Read data
+data <- read.table(gzfile('data/jurkat_two_species_1580.txt.gz'))
+data <- t(data) #Samples * Features
 
-    #Read Labels
-    labels <- read.table('data/labels_jurkat_two_species_1580.txt') #Cells with label '1' represent abundant, while cells with label '2' represent rare.
+#Read Labels
+labels <- read.table('data/labels_jurkat_two_species_1580.txt') #Cells with label '1' represent abundant, while cells with label '2' represent rare.
 
-    #Genes
-    genes <- c(1:dim(data)[2]) #It can be replaced with original gene names
+#Genes
+genes <- c(1:dim(data)[2]) #It can be replaced with original gene names
 
-    data_mat <- list(mat=data, gene_symbols=genes)
+data_mat <- list(mat=data, gene_symbols=genes)
 ```
 
 3. <h4>Call function ranger_preprocess for selecting thousand variable genes.</h4>
 ```R
-    preprocessedList <- ranger_preprocess(data_mat)
-    preprocessedData <- as.matrix(preprocessedList$preprocessedData)
+preprocessedList <- ranger_preprocess(data_mat)
+preprocessedData <- as.matrix(preprocessedList$preprocessedData)
 ```
+
 |Parameter | Description | Required or Optional| Datatype | Default Value |
 | -----:| -----:| -----:|-----:|-----:|
 |data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
@@ -424,10 +425,6 @@ Step-by-step description of full demo (example/jurkat_simulation.R) is as follow
 |verbose | Display progress | Optional | `boolean` | True(Prints intermediate results) |
 
 
-3. <h4>Load R module of FiRE software.</h4>
-```R
-library('FiRE')
-```
 4. <h4>Create model of FiRE.</h4>
 ```R
 # model <- new(FiRE::FiRE, L, M, H, seed, verbose)
@@ -454,7 +451,23 @@ Acceptable datatype is of `matrix` class and of `type` `double` (`Numeric matrix
 score <- model$score(preprocessedData)
 ```
 
-7. <h4>Access to model parameters.</h4>
+7. <h4>Select cells with higher values of FiRE score, that satisfy IQR-based thresholding criteria.</h4>
+```R
+#Apply IQR-based criteria to identify rare cells for further downstream analysis.
+q3 <- quantile(score, 0.75)
+iqr <- IQR(score)
+th <- q3 + (1.5*iqr)
+
+#Select indexes that satisfy IQR-based thresholding criteria.
+indIqr <- which(score >= th)
+
+#Create a file with binary predictions
+predictions <- integer(dim(data)[1])
+predictions[indIqr] <- 1 #Replace predictions for rare cells with '1'.
+
+```
+
+8. <h4>Access to model parameters.</h4>
 Sampled dimensions can be accessed via
 ```R
 # type : Integer matrix
