@@ -3,6 +3,7 @@
 ## Contents
   [Introduction](#introduction)<br />
   [External dependencies](#etc)<br/>
+  [Installation](#install)<br />
   [Python Package](#python-demo)<br />
    -[Prerequisites](#pre-python)<br />
    -[Installation Steps](#install-steps-python)<br />
@@ -37,6 +38,33 @@ Following packages are required to run/install the FiRE software.
 
 FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not necessary. It can be downloaded from [boost.org](https://www.boost.org/) and used as is.
 
+<a name="install"></a>
+## Installation
+
+```bash
+    [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
+    [sudo] ./UNINSTALL_python
+    [sudo] ./UNINSTALL_R
+
+    --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
+    --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
+    --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
+    --py                       : python        : Install FiRE in python environment.
+    --R                        : R             : Install FiRE in R environment.
+    --help                     : python | R    : Display this help.
+
+    Info:
+
+    UNINSTALL_[python | R] files are generated upon installation.
+```
+
+Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+real 2.92
+user 2.73
+sys 0.18
+```
 
 <a name="python-demo"></a>
 ## Python Package
@@ -75,31 +103,6 @@ For demo
 <a name="install-steps-python"></a>
 ### Installation Steps
 
-```bash
-    [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
-    [sudo] ./UNINSTALL_python
-    [sudo] ./UNINSTALL_R
-
-    --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
-    --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
-    --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
-    --py                       : python        : Install FiRE in python environment.
-    --R                        : R             : Install FiRE in R environment.
-    --help                     : python | R    : Display this help.
-
-    Info:
-
-    UNINSTALL_[python | R] files are generated upon installation.
-```
-
-Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
-
-```bash
-real 2.92
-user 2.73
-sys 0.18
-```
-
 <h4>If boost is installed at default location</h4>
 
 ```bash
@@ -124,10 +127,10 @@ Above installation steps will generate `fireInstall.log` file. It is advisable t
 
 Above steps will install `FiRE` at the default location.
 
-<h4>For `inplace` installation</h4>
+<h4>For inplace installation</h4>
 
 ```bash
-    ./INSTALL --inplace [--py]
+    ./INSTALL --inplace --py
 ```
 
 <h4> Uninstallation of FiRE Software.</h4>
