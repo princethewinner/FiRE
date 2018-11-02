@@ -29,6 +29,7 @@ FiRE is available for `python` and `R`. Required versions and modules for both a
 Following packages are required to run/install the FiRE software.
 
 <h4>Required cpp modules</h4>
+
 ```cpp
     g++ >= 4.8.4
     boost >= 1.54.0
@@ -44,6 +45,7 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
 ### Prerequisites
 
 <h4>Required python modules</h4>
+
 ```python
     python 2.7
 ```
