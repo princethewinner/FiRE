@@ -106,23 +106,22 @@ For demo
 <h4>If boost is installed at default location</h4>
 
 ```bash
-    sudo ./INSTALL --py
+sudo ./INSTALL --py
 ```
 
 <h4>If boost is installed at custom location</h4>
 
 ```bash
-    sudo ./INSTALL --boost-path <full-path> --py
-
+sudo ./INSTALL --boost-path <full-path> --py
 ```
 Example:
 ```bash
-    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --py
+sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --py
 ```
 Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
 
 ```bash
-    ./INSTALL --log-file <log-file-name> --py
+./INSTALL --log-file <log-file-name> --py
 ```
 
 Above steps will install `FiRE` at the default location.
@@ -130,13 +129,13 @@ Above steps will install `FiRE` at the default location.
 <h4>For inplace installation</h4>
 
 ```bash
-    ./INSTALL --inplace --py
+./INSTALL --inplace --py
 ```
 
 <h4> Uninstallation of FiRE Software.</h4>
 
 ```bash
-    [sudo] ./UNINSTALL_python
+[sudo] ./UNINSTALL_python
 ```
 
 <a name="usage-python"></a>
@@ -337,24 +336,23 @@ For preprocessing and demo
 <h4>If boost is installed at default location</h4>
 
 ```bash
-    sudo ./INSTALL --R
+sudo ./INSTALL --R
 ```
 
 <h4>If boost is installed at custom location</h4>
 
 ```bash
-    sudo ./INSTALL --boost-path <full-path> --R
-
+sudo ./INSTALL --boost-path <full-path> --R
 ```
 Example:
 ```bash
-    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --R
+sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --R
 ```
 
 <h4> Uninstallation of FiRE Software.</h4>
 
 ```bash
-    [sudo] ./UNINSTALL_R
+[sudo] ./UNINSTALL_R
 ```
 
 <a name="usage-R"></a>
@@ -416,8 +414,7 @@ preprocessedData <- as.matrix(preprocessedList$preprocessedData)
 
 |Parameter | Description | Required or Optional| Datatype | Default Value |
 | -----:| -----:| -----:|-----:|-----:|
-|data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
-|genes | Names of Genes | Required | `np.array [nGenes]` | - |
+|data_mat | List consisting of data for processing and gene symbols | Required | `list(mat=data, gene_symbols=genes)` | - |
 |ngenes_keep | Number of genes to keep | Optional | `integer` | 1000 |
 |dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True) |
 |optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save) |
