@@ -316,7 +316,19 @@ model.bins
 
 ```R
     R >= 3.2.3
+```
+
+For FiRE module
+
+```R
     Rcpp >= 0.12.19
+```
+
+For preprocessing and demo
+
+```R
+    Matrix >= 1.2.14
+    plyr >= 1.8.4
 ```
 
 <a name="install-steps-R"></a>
@@ -348,11 +360,75 @@ Example:
 <a name="usage-R"></a>
 ### Usage
 
-1. <h4>Load R module of FiRE software.</h4>
+Run demo from FiRE directory as follows
+```R
+Rscript example/jurkat_simulation.R
+```
+
+Since data (`data/jurkat_two_species_1580.txt.gz`) is large, this may require large amount of RAM to load and pre-process. We have also providee pre-processed data (`data/preprocessedData_jurkat_two_species_1580.txt.gz`). Pre-processing was done using the script present in `utils/preprocess.R`. Demo using this data as follows
+
+```R
+Rscript example/jurkat_simulation_small.R
+```
+
+Small demo takes seconds to complete. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+Loading preprocessed Data : 1.850723s
+Running FiRE : 1.134673s
+
+Total Demo time:
+
+real 4.33
+user 3.55
+sys 0.76
+
+```
+
+Step-by-step description of full demo (example/jurkat_simulation.R) is as follows
+
+1. <h4>Load libraries</h4>
+```R
+    library('FiRE')
+    source('utils/preprocess.R')
+```
+
+2. <h4>Load Data in current environment.</h4>
+```R
+    #Read data
+    data <- read.table(gzfile('data/jurkat_two_species_1580.txt.gz'))
+    data <- t(data) #Samples * Features
+
+    #Read Labels
+    labels <- read.table('data/labels_jurkat_two_species_1580.txt') #Cells with label '1' represent abundant, while cells with label '2' represent rare.
+
+    #Genes
+    genes <- c(1:dim(data)[2]) #It can be replaced with original gene names
+
+    data_mat <- list(mat=data, gene_symbols=genes)
+```
+
+3. <h4>Call function ranger_preprocess for selecting thousand variable genes.</h4>
+```R
+    preprocessedList <- ranger_preprocess(data_mat)
+    preprocessedData <- as.matrix(preprocessedList$preprocessedData)
+```
+|Parameter | Description | Required or Optional| Datatype | Default Value |
+| -----:| -----:| -----:|-----:|-----:|
+|data | Data for processing | Required | `np.array [nCells, nGenes]` | - |
+|genes | Names of Genes | Required | `np.array [nGenes]` | - |
+|ngenes_keep | Number of genes to keep | Optional | `integer` | 1000 |
+|dataSave | Path to save results | Optional | `string` | Current working Directory (Used only when optionToSave is True) |
+|optionToSave | Save processed output or not | Optional | `boolean` | False(Does not save) |
+|minLibSize | Minimum number of expressed features | Optional | `integer` | 0 |
+|verbose | Display progress | Optional | `boolean` | True(Prints intermediate results) |
+
+
+3. <h4>Load R module of FiRE software.</h4>
 ```R
 library('FiRE')
 ```
-2. <h4>Create model of FiRE.</h4>
+4. <h4>Create model of FiRE.</h4>
 ```R
 # model <- new(FiRE::FiRE, L, M, H, seed, verbose)
 model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
@@ -366,19 +442,19 @@ model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
 |seed | Seed for random number generator | Optional | `int` | 5489|
 |verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
 
-3. <h4>Apply model to the above dataset.</h4>
+5. <h4>Apply model to the above dataset.</h4>
 ```R
 model$fit(preprocessedData)
 ```
 Acceptable datatype is of `matrix` class and of `type` `double` (`Numeric matrix`).
 
-4. <h4>Calculate FiRE score of every cell.</h4>
+6. <h4>Calculate FiRE score of every cell.</h4>
 ```R
 # Returns a numeric vector
 score <- model$score(preprocessedData)
 ```
 
-5. <h4>Access to model parameters.</h4>
+7. <h4>Access to model parameters.</h4>
 Sampled dimensions can be accessed via
 ```R
 # type : Integer matrix
