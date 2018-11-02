@@ -75,6 +75,67 @@ For demo
 <a name="install-steps-python"></a>
 ### Installation Steps
 
+```bash
+    [sudo] ./INSTALL [ --boost-path <boost-path> | --log-file <log-file> | --inplace | --py | --R | --help ]
+    [sudo] ./UNINSTALL_python
+    [sudo] ./UNINSTALL_R
+
+    --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
+    --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
+    --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
+    --py                       : python        : Install FiRE in python environment.
+    --R                        : R             : Install FiRE in R environment.
+    --help                     : python | R    : Display this help.
+
+    Info:
+
+    UNINSTALL_[python | R] files are generated upon installation.
+```
+
+Typically, FiRE module takes a few seconds to install. A snippet of installation time taken by FiRE (in seconds) on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
+
+```bash
+real 2.92
+user 2.73
+sys 0.18
+```
+
+<h4>If boost is installed at default location</h4>
+
+```bash
+    sudo ./INSTALL --py
+```
+
+<h4>If boost is installed at custom location</h4>
+
+```bash
+    sudo ./INSTALL --boost-path <full-path> --py
+
+```
+Example:
+```bash
+    sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --py
+```
+Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
+
+```bash
+    ./INSTALL --log-file <log-file-name> --py
+```
+
+Above steps will install `FiRE` at the default location.
+
+<h4>For `inplace` installation</h4>
+
+```bash
+    ./INSTALL --inplace [--py]
+```
+
+<h4> Uninstallation of FiRE Software.</h4>
+
+```bash
+    [sudo] ./UNINSTALL_python
+```
+
 <a name="usage-python"></a>
 ### Usage
 
