@@ -85,6 +85,7 @@ For demo
 ### Prerequisites
 
 <h4>Required R modules</h4>
+
 ```R
     R >= 3.2.3
     Rcpp >= 0.12.19
