@@ -348,11 +348,79 @@ Example:
 <a name="usage-R"></a>
 ### Usage
 
+1. <h4>Load R module of FiRE software.</h4>
+```R
+library('FiRE')
+```
+2. <h4>Create model of FiRE.</h4>
+```R
+# model <- new(FiRE::FiRE, L, M, H, seed, verbose)
+model <- new(FiRE::FiRE, 100, 50, 1017881, 5489, 0)
+```
+
+|Parameter | Description | Required or Optional| Datatype | Default Value |
+| -----:| -----:| -----:|-----:|-----:|
+|L | Total number of estimators | Required | `int` | - |
+|M | Number of features to be randomly sampled for each estimator | Required | `int` | - |
+|H | Number of bins in hash table | Optional | `int` | 1017881|
+|seed | Seed for random number generator | Optional | `int` | 5489|
+|verbose | Controls verbosity of program at run time (0/1) | Optional | `int` | 0 (silent) |
+
+3. <h4>Apply model to the above dataset.</h4>
+```R
+model$fit(preprocessedData)
+```
+Acceptable datatype is of `matrix` class and of `type` `double` (`Numeric matrix`).
+
+4. <h4>Calculate FiRE score of every cell.</h4>
+```R
+# Returns a numeric vector
+score <- model$score(preprocessedData)
+```
+
+5. <h4>Access to model parameters.</h4>
+Sampled dimensions can be accessed via
+```R
+# type : Integer matrix
+# shape : L x M
+model$d
+```
+Chosen thresholds can be accessed via
+```R
+# type : Numeric matrix
+# shape : L x M
+model$ths
+```
+
+Weights can be accessed via
+```R
+# type : Numeric matrix
+# shape : 0 x 0
+model$w
+
+# Internally this vector is represented as unsigned int.
+# Since R does not have unsigned data type. This function return a blank matrix.
+# instead, it prints the matrix if number of elements is less than or equal to 100.
+# Though FiRE provides API to save the weight matrix.
+model$dump_w(filename)
+
+```
+
+Hash tables can be accessed via
+```R
+# type : List
+# shape : L x H x <dynamic>
+# <dynamic> : as per number of samples in a bin (H) for a given estimator (L).
+model$b
+```
+
 <a name="publication"></a>
 ## Publication
 
 <a name="copyright"></a>
 ## Copyright
+
+This software is distributed under GNU GPL v3.
 
 <a name="patent"></a>
 ## Patent
