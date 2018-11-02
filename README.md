@@ -420,7 +420,7 @@ model$b
 <a name="copyright"></a>
 ## Copyright
 
-This software is distributed under GNU GPL v3.
+This software package is distributed under GNU GPL v3.
 
 <a name="patent"></a>
 ## Patent
