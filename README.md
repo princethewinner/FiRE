@@ -372,14 +372,12 @@ Rscript example/jurkat_simulation_small.R
 Small demo takes seconds to complete. Exact time taken by the demo on a machine with Intel® Core™ i5-7200U (CPU @ 2.50GHz × 4), with 8GB memory, and OS Ubuntu 16.04 LTS is as follows
 
 ```bash
-Loading preprocessed Data : 1.850723s
-Running FiRE : 1.134673s
 
 Total Demo time:
 
-real
-user
-sys
+real 4.11
+user 3.16
+sys 1.13
 
 ```
 
