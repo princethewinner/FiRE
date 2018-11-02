@@ -142,9 +142,6 @@ Above steps will install `FiRE` at the default location.
 <a name="usage-python"></a>
 ### Usage
 
-<a name="r-demo"></a>
-## R Package
-
 Run demo from FiRE directory as follows
 ```python
 python example/jurkat_simulation.py
@@ -308,6 +305,9 @@ model.bins
     <img src="image/jurkat.png" width="1000" height="300" />
 
 (a) t-SNE based 2D embedding of the cells with color-coded identities (b) FiRE score intensities plotted on the t-SNE based 2D map. (c) Rare cells detected by FiRE.
+
+<a name="r-demo"></a>
+## R Package
 
 <a name="pre-R"></a>
 ### Prerequisites
