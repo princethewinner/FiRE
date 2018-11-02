@@ -1,4 +1,5 @@
 require('Matrix')
+require('plyr')
 
 ranger_preprocess<-function(data_mat, ngenes_keep=1000, dataSave='./', optionToSave=F, minLibSize=0, verbose=T){
 
@@ -12,7 +13,7 @@ ranger_preprocess<-function(data_mat, ngenes_keep=1000, dataSave='./', optionToS
     cat("Select variable Genes...\n")
   }
 
-  df<-.get_variable_gene(m_n)
+  df<- .get_variable_gene(m_n)
   gc()
 
   if (verbose){
@@ -43,13 +44,14 @@ ranger_preprocess<-function(data_mat, ngenes_keep=1000, dataSave='./', optionToS
   m_filt<-Matrix(log2(m_n_68K+1),sparse = T)
 
   if (verbose){
-    cat(paste("Writing Log Normalized whole_matrix, DIM:",dim(m_filt)[1], dim(m_filt)[2],"...\n"))
+    cat(paste("Writing Log Normalized whole_matrix, DIM:",dim(m_filt)[1], dim(m_filt)[2]))
   }
   #system("rm whole_matrix",ignore.stderr = T)
   if (optionToSave){
     writeMM(m_filt,file="whole_matrix")
   }
-  return list(preprocessedData=m_filt, selGenes=features)
+
+  list(preprocessedData=m_filt, selGenes=features)
 }
 
 # ---------------------------------------------
@@ -74,10 +76,28 @@ ranger_preprocess<-function(data_mat, ngenes_keep=1000, dataSave='./', optionToS
 
     mat <- mat[keepCellIndex,]
     if (verbose){
-      cat(paste("Dimensions of matrix after cell filtering : ",dim(mat) "\n"))
+      cat(paste("Dimensions of matrix after cell filtering : ",dim(mat),"\n"))
     }
     write.csv(keepCellIndex, file = paste(dataSave,"keepCellIndexes.csv",sep=""), quote = F,row.names = F)
+  }
+
+  #Filter Genes
+  cs <- colSums(mat>2)
+  x_use_genes <- which(cs > 3)
+
+  x_filt<-mat[,x_use_genes]
+  gene_symbols = gene_symbols[x_use_genes]
+  if (verbose){
+    cat("Dimensions os filtered Matrix:")
+    cat(paste(dim(x_filt),"\n"))
+  }
+
+  rs<-rowSums(x_filt)
+  rs_med<-median(rs)
+  x_norm<-x_filt/(rs/rs_med)
+  list(m=x_norm,use_genes=gene_symbols)
 }
+
 
 # --------------------------------------------------
 # get variable genes from normalized UMI counts
@@ -99,19 +119,3 @@ ranger_preprocess<-function(data_mat, ngenes_keep=1000, dataSave='./', optionToS
 }
 
 
-  #Filter Genes
-  cs <- colSums(mat>2)
-  x_use_genes <- which(cs > 3)
-
-  x_filt<-mat[,x_use_genes]
-  gene_symbols = gene_symbols[x_use_genes]
-  if (verbose){
-    cat("Dimensions os filtered Matrix:")
-    cat(paste(dim(x_filt),"\n"))
-  }
-
-  rs<-rowSums(x_filt)
-  rs_med<-median(rs)
-  x_norm<-x_filt/(rs/rs_med)
-  list(m=x_norm,use_genes=gene_symbols)
-}
