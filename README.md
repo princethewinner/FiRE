@@ -501,7 +501,7 @@ model$b
 <a name="publication"></a>
 ## Publication
 
-Jindal, A., Gupta, P. and Sengupta, D., 2018. Discovery of rare cells from voluminous single cell expression data. Nature communications, 9(1), p.4719.
+Jindal, A., Gupta, P., Jayadeva and Sengupta, D., 2018. Discovery of rare cells from voluminous single cell expression data. Nature communications, 9(1), p.4719.
 DOI: https://doi.org/10.1038/s41467-018-07234-6
 
 <a name="copyright"></a>
