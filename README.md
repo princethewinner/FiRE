@@ -76,7 +76,9 @@ sys 0.18
 
 ```python
     python 2.7
-    #[EDIT] python 3 can also be used with standard installation, however, with --inplace option uninstallation may fail. As a workround generated .so file can be removed manually if uninstallation of FiRE is desired.
+    # [EDIT] python 3 can also be used with standard installation. 
+    # however, with --inplace option uninstallation may fail. 
+    # As a workround generated .so file can be removed manually if uninstallation of FiRE is desired.
 ```
 
 For FiRE module
