@@ -24,6 +24,7 @@ RCPP_MODULE(fire){
     using namespace Rcpp ;
     class_<FiRE>("FiRE")
     .constructor<int, int, int, int, int>()
+    .constructor<int, int>()
     .property("ths", &FiRE::ths)
     .property("w", &FiRE::w)
     .property("d", &FiRE::d)
