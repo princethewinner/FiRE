@@ -341,13 +341,8 @@ For preprocessing and demo
 <a name="install-steps-R"></a>
 ### Installation Steps
 
-<h4>If boost is installed at default location</h4>
+<h4> Installation of FiRE Software.</h4>
 
-```bash
-sudo ./INSTALL --R
-```
-
-Example:
 ```bash
 sudo ./INSTALL --R
 ```
