@@ -126,11 +126,6 @@ fi
 
 if [ ${LANGUAGE} == 'R' ]; then
 
-    if [ ${BOOST_PATH} != "None" ]; then
-        echo -e "export PKG_CPPFLAGS=-I${BOOST_PATH}"
-        export PKG_CPPFLAGS=-I${BOOST_PATH}
-    fi
-
     INSTALL_DIR=${LANGUAGE}
     echo "Changing directory to ${INSTALL_DIR}"
     cd ${INSTALL_DIR}
