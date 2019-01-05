@@ -50,7 +50,7 @@ FiRE only needs `<boost/random.hpp>` from boost. So, full installation is not ne
     [sudo] ./UNINSTALL_python
     [sudo] ./UNINSTALL_R
 
-    --boost-path <boost-path>  : python | R    : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
+    --boost-path <boost-path>  : python        : Path to boost-library, if boost is not installed at default location, this value needs to be provided.
     --inplace                  : python        : Required only for python, if set, inplace build will be run and resulting lib will be stored in python/FiRE.
     --log-file <log-file>      : python        : Required only for python, ignored with --inplace set.
     --py                       : python        : Install FiRE in python environment.
@@ -328,6 +328,7 @@ For FiRE module
 
 ```R
     Rcpp >= 0.12.19
+    BH >= 1.66
 ```
 
 For preprocessing and demo
@@ -346,11 +347,6 @@ For preprocessing and demo
 sudo ./INSTALL --R
 ```
 
-<h4>If boost is installed at custom location</h4>
-
-```bash
-sudo ./INSTALL --boost-path <full-path> --R
-```
 Example:
 ```bash
 sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --R
