@@ -18,6 +18,8 @@
  *
  */
 
+// [[Rcpp::depends(BH)]]
+
 #include "Rcpp.h"
 #include <vector>
 #include <cstddef>
@@ -26,6 +28,7 @@
 #include <cmath>                                        //Required for log function.
 #include <sstream>
 #include <fstream>
+
 
 std::string IntToString(int x){
 
@@ -64,7 +67,7 @@ class FiRE{
     public: Rcpp::NumericVector score(Rcpp::NumericMatrix& X);                          //Public method to compute score
     public: Rcpp::NumericMatrix ths();
     public: Rcpp::IntegerMatrix d();
-    public: Rcpp::IntegerMatrix w();
+    public: Rcpp::NumericMatrix w();
     public: void dump_w(Rcpp::String);
     public: Rcpp::List b();
 };
@@ -77,6 +80,9 @@ typedef boost::uniform_int<int> uniformInt;             //integer number generat
 typedef boost::uniform_int<unsigned> uniformUnsigned;   //unsigned integer number generator
 
 
+//' @param x An integer vector
+//' @return None
+// [[Rcpp::export]]
 FiRE::FiRE(int L, int M, int H=1017881, int seed=5489u, int verbose=0){
     this->L = L;
     this->M = M;
@@ -156,7 +162,7 @@ void FiRE::fit(Rcpp::NumericMatrix& X){
     _max = -1 * FLT_MAX;                                            //Default value of max
 
     if(this->verbose > 0)
-        std::cout << "Getting min and max of data" << std::endl;
+        Rcpp::Rcout << "Getting min and max of data\n";
 
     for(i=0; i<this->size_; i++){
         for(j=0; j<this->dim; j++){
@@ -169,11 +175,11 @@ void FiRE::fit(Rcpp::NumericMatrix& X){
     this->max_ = _max;                                              //maximum value of dataset
 
     if(this->verbose > 0)
-        std::cout << "Getting tables" << std::endl;
+        Rcpp::Rcout << "Getting tables\n";
     this->__getTables();                                            //Call for getting random tables
 
     if (this->verbose > 0)
-        std::cout << "Getting bins" << std::endl;
+        Rcpp::Rcout << "Getting bins\n";
     this->__getBins(X);                                             //Call for filling hash tables
 
 }
@@ -227,42 +233,22 @@ Rcpp::NumericMatrix FiRE::ths(){
 
 }
 
-Rcpp::IntegerMatrix FiRE::w(){
+Rcpp::NumericMatrix FiRE::w(){
 
-    Rcpp::warning("Internally weights are stored as unsigned int.\n\
-Since R does not support unsigned values, this call only display values\n\
-if number of elements is less than or equal to 100\n\
-use dump_w function to save weights in a file to inspect instead.");
+    Rcpp::NumericMatrix mat(this->L, this->M);
+    Rcpp::CharacterVector rname;
 
-    if(this->L * this->M < 100){
-        for(int i=0; i < this->L; i++){
-            for(int j=0; j < this->M; j++)
-                std::cout << this->weights.at(i).at(j) << " ";
-            std::cout << std::endl;
-        }
+    for(int i=0; i < this->L; i++){
+
+        Rcpp::NumericVector temp(this->weights.at(i).begin(), this->weights.at(i).end());
+
+        mat(i, Rcpp::_) = temp;
+        rname.push_back("estimator_" + IntToString(i+1));
     }
 
-    return Rcpp::IntegerMatrix();
+    rownames(mat) = rname;
 
-}
-
-void FiRE::dump_w(Rcpp::String fname){
-
-    std::ofstream fd;
-    fd.open(fname.get_cstring());
-
-    if(fd.is_open()){
-
-        for(int i=0; i < this->L; i++){
-
-            for(int j=0; j < this->M; j++){
-                fd << this->weights.at(i).at(j) << " ";
-            }
-            fd << "\n";
-        }
-        fd.close();
-    }
-    else std::cout << "Unable to open file" << std::endl;
+    return mat;
 
 }
 

@@ -1,12 +1,15 @@
 Package: FiRE
-Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Finder of Rare Entities (FiRE)
 Version: 1.0
-Date: 2018-10-09
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one
-        or more full sentences.
-License: GPL (>= 2)
+Authors@R: c(person("Prashant", "Gupta", email = "prashant10991@gmail.com", role = c("aut", "cre")), person("Aashi", "Jindal", email = "jindal.aashi21@gmail.com", role = c("aut")), person("Jayadeva", email = "iitjd4@gmail.com", role = c("aut")) ,person("Debarka", "Sengupta", email = "debarka@gmail.com", role = c("aut")))
+Description: The algorithm assigns rareness/ outlierness score to every sample in voluminous datasets.
+    The algorithm makes multiple estimations of the proximity between a pair of samples, in low-dimensional spaces. To compute proximity, FiRE uses Sketching, a variant of locality sensitive hashing. For more details: Jindal, A., Gupta, P., Jayadeva and Sengupta, D., 2018. Discovery of rare cells from voluminous single cell expression data. Nature Communications, 9(1), p.4719. <doi:10.1038/s41467-018-07234-6>.
+URL: https://github.com/princethewinner/FiRE
+BugReports: https://github.com/princethewinner/FiRE/issues
+Note: While reporting issues on github start subject line with [cran-package]
+Depends: R (>= 3.2.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
 Imports: methods, Rcpp (>= 0.12.19)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, BH

@@ -30,6 +30,5 @@ RCPP_MODULE(fire){
     .property("d", &FiRE::d)
     .property("b", &FiRE::b)
     .method("fit", &FiRE::fit)
-    .method("score", &FiRE::score)
-    .method("dump_w", &FiRE::dump_w);
+    .method("score", &FiRE::score);
 }
