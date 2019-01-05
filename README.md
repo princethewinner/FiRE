@@ -321,7 +321,7 @@ model.bins
 <h4>Required R modules</h4>
 
 ```R
-    R >= 3.2.3
+    R >= 3.2.0
 ```
 
 For FiRE module
@@ -479,13 +479,6 @@ Weights can be accessed via
 # type : Numeric matrix
 # shape : 0 x 0
 model$w
-
-# Internally this vector is represented as unsigned int.
-# Since R does not have unsigned data type. This function return a blank matrix.
-# instead, it prints the matrix if number of elements is less than or equal to 100.
-# Though FiRE provides API to save the weight matrix.
-model$dump_w(filename)
-
 ```
 
 Hash tables can be accessed via
