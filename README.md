@@ -110,6 +110,10 @@ For demo
 <a name="install-steps-python"></a>
 ### Installation Steps
 
+```bash
+[sudo] chomd +x ./INSTALL
+```
+
 <h4>If boost is installed at default location</h4>
 
 ```bash
@@ -340,6 +344,10 @@ For preprocessing and demo
 
 <a name="install-steps-R"></a>
 ### Installation Steps
+
+```bash
+[sudo] chomd +x ./INSTALL
+```
 
 <h4> Installation of FiRE Software.</h4>
 
