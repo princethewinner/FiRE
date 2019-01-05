@@ -349,7 +349,7 @@ sudo ./INSTALL --R
 
 Example:
 ```bash
-sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --R
+sudo ./INSTALL --R
 ```
 
 <h4> Uninstallation of FiRE Software.</h4>
