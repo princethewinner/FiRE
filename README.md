@@ -110,6 +110,8 @@ For demo
 <a name="install-steps-python"></a>
 ### Installation Steps
 
+with virtual environment avoid using `sudo`. (Thanks to [chenxofhit](https://github.com/chenxofhit))
+
 ```bash
 [sudo] chomd +x ./INSTALL
 ```
@@ -117,17 +119,17 @@ For demo
 <h4>If boost is installed at default location</h4>
 
 ```bash
-sudo ./INSTALL --py
+[sudo] ./INSTALL --py
 ```
 
 <h4>If boost is installed at custom location</h4>
 
 ```bash
-sudo ./INSTALL --boost-path <full-path> --py
+[sudo] ./INSTALL --boost-path <full-path> --py
 ```
 Example:
 ```bash
-sudo ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --py
+[sudo] ./INSTALL --boost-path $HOME/boost/boost_1_54_0 --py
 ```
 Above installation steps will generate `fireInstall.log` file. It is advisable to keep this file, since it will be needed for uninstallation. Name of the log file can be modified during installation.
 
@@ -352,7 +354,7 @@ For preprocessing and demo
 <h4> Installation of FiRE Software.</h4>
 
 ```bash
-sudo ./INSTALL --R
+[sudo] ./INSTALL --R
 ```
 
 <h4> Uninstallation of FiRE Software.</h4>
