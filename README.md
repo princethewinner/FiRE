@@ -1,9 +1,11 @@
 
 # FiRE - Finder of Rare Entities
+
 <h1> Update: FiRE is now available via cran. install FiRE using </h1>
 ```R
 install.packages('FiRE')
 ```
+
 ## Contents
   [Introduction](#introduction)<br />
   [External dependencies](#etc)<br/>
