@@ -1,7 +1,7 @@
 
 # FiRE - Finder of Rare Entities
 
-<span style="background-color: #FFFF00">Update: FiRE is now available via cran. install FiRE using</span>
+<mark>Update: FiRE is now available via cran. install FiRE using</mark>
 ```R
 install.packages('FiRE')
 ```
