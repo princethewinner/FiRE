@@ -512,5 +512,4 @@ DOI: https://doi.org/10.1038/s41467-018-07234-6
 
 This software package is distributed under GNU GPL v3.
 
-<a name="patent"></a>
-## Patent
+This work is free to use for academic and research purposes. Please contact [Dr. Debarka](debarka@iiitd.ac.in) for commercial use of this work.
